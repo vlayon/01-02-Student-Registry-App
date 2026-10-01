@@ -1,0 +1,30 @@
+name: Build and test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node_version: [24, 23, 22]
+    
+    steps:
+    - name: Check out, bro
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{matrix.node_version}}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{matrix.node_version}}
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install   
+    - name: Run tests
+      run: npm test

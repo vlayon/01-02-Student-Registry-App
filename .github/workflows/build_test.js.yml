@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build_test:
 
     runs-on: ubuntu-latest
     
@@ -24,3 +24,13 @@ jobs:
       run: npm install   
     - name: Run tests
       run: npm test
+
+  deploy_to_render:
+    needs: build_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.SERVICE_ID }}
+          api-key: ${{ secrets.API_KEY }}

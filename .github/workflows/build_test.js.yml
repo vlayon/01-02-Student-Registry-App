@@ -21,6 +21,6 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: nom install   
+      run: npm install   
     - name: Run tests
       run: npm test
